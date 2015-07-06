@@ -33,6 +33,8 @@ class CLI:
             self.save(args)
         elif cmd == 'load':
             self.load(args)
+        elif cmd == 'run':
+            self.run(args)
         else:
             print '\'{}\' is not a valid command.'.format(cmd)
 
@@ -54,3 +56,6 @@ class CLI:
         if not args:
             args = ['save']
         self.desired_classes.load(args[0])
+
+    def run(self, args):
+        self.desired_classes.run()
