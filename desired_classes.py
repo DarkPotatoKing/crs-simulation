@@ -115,7 +115,7 @@ class DesiredClasses:
         else:
             # check if conflict with same subject or sched
             for x in granted_classes:
-                if x.name == course.name or x.section == course.section:
+                if x.name == course.name or x.section.find(course.section) != -1 or course.section.find(x.section) != -1:
                     return False
 
             # if no conflicts, return True
