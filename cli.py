@@ -62,4 +62,4 @@ class CLI:
         self.desired_classes.load(args[0])
 
     def run(self, args):
-        self.desired_classes.run()
+        self.desired_classes.run(*args)
