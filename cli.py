@@ -20,6 +20,10 @@ class CLI:
             self.add(args)
         elif cmd == 'print':
             self.print_classes(args)
+        elif cmd == 'save':
+            self.save(args)
+        elif cmd == 'load':
+            self.load(args)
         else:
             print '\'{}\' is not a valid command.'.format(cmd)
 
@@ -31,3 +35,13 @@ class CLI:
 
     def print_classes(self, args):
         self.desired_classes.print_classes()
+
+    def save(self, args):
+        if not args:
+            args = ['save']
+        self.desired_classes.save(args[0])
+
+    def load(self, args):
+        if not args:
+            args = ['save']
+        self.desired_classes.load(args[0])
