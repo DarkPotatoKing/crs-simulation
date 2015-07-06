@@ -1,8 +1,8 @@
-from course import Course
+from desired_classes import DesiredClasses
 
 def main():
-    c = Course(1, 'CS 32', 'THV', 3, 15, 73)
-    print c
+    d = DesiredClasses()
+    print d
 
 if __name__ == '__main__':
     main()
