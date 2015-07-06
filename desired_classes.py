@@ -1,5 +1,7 @@
+from __future__ import division 
 from course import Course
 from utils import *
+
 
 class DesiredClasses:
     """docstring for DesiredClasses"""
@@ -49,16 +51,44 @@ class DesiredClasses:
                     self.add(*x)
             print 'loaded {0}.cvs'.format(filename)
 
-    def run(self):
-        granted_classes = []
+    def run(self, num_times = 1, filename = ''):
+        num_times = int(num_times)
+        run_total_units = 0.0
 
-        for x in self.enlisted_classes[1:]:
-            if x.is_granted() and self.no_conflict(x, granted_classes):
-                granted_classes.append(x)
+        if filename:
+            # delete contents of file
+            f = open('filename', 'w')
+            f.close()
 
-        print 'Granted classes:'
-        print '\n'.join([str(x) for x in granted_classes])
-        print 'Total units: {}'.format(sum([x.credits for x in granted_classes]))
+        for ctr in xrange(num_times):
+            granted_classes = []
+
+            for x in self.enlisted_classes[1:]:
+                if x.is_granted() and self.no_conflict(x, granted_classes):
+                    granted_classes.append(x)
+
+            units = sum([x.credits for x in granted_classes])
+            run_total_units += units
+
+            if filename:
+                with open(filename + '.txt', 'a+') as f:
+                    f.write('Run #%d:\n' % (ctr+1))
+                    f.write('\n'.join([str(x) for x in granted_classes]) + '\n')
+                    f.write('Total units: {}\n\n'.format(sum([x.credits for x in granted_classes])) + '\n')
+            else:
+                print 'Run #%d:' % (ctr+1)
+                print '\n'.join([str(x) for x in granted_classes])
+                print 'Total units: {}\n\n'.format(units)
+
+        run_average_units = run_total_units / num_times
+
+        if filename:
+            with open(filename + '.txt', 'a+') as f:
+                f.write('Average units: %f\n' % (run_average_units))
+            print 'results logged to %s.txt' % filename
+        else:
+            print 'Average units: %f' % (run_average_units)
+                
 
     def no_conflict(self, course, granted_classes):
         # check if overload
