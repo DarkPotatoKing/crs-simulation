@@ -54,10 +54,14 @@ class DesiredClasses:
     def run(self, num_times = 1, filename = ''):
         num_times = int(num_times)
         run_total_units = 0.0
+        num_times_granted = dict()
+
+        for x in self.enlisted_classes:
+            num_times_granted[x] = 0
 
         if filename:
             # delete contents of file
-            f = open('filename', 'w')
+            f = open(filename, 'w')
             f.close()
 
         for ctr in xrange(num_times):
@@ -66,6 +70,7 @@ class DesiredClasses:
             for x in self.enlisted_classes[1:]:
                 if x.is_granted() and self.no_conflict(x, granted_classes):
                     granted_classes.append(x)
+                    num_times_granted[x] += 1
 
             units = sum([x.credits for x in granted_classes])
             run_total_units += units
@@ -84,10 +89,18 @@ class DesiredClasses:
 
         if filename:
             with open(filename + '.txt', 'a+') as f:
+                f.write('Run summary (%d run/s)\n' % num_times)
                 f.write('Average units: %f\n' % (run_average_units))
+                f.write('Course summary:\n')
+                for x in self.enlisted_classes[1:]:
+                    f.write(str(x) + ' {}/{} times ({})\n'.format(num_times_granted[x],num_times,num_times_granted[x]/num_times))          
             print 'results logged to %s.txt' % filename
         else:
+            print 'Run summary (%d run/s)' % num_times
             print 'Average units: %f' % (run_average_units)
+            print 'Course summary:'
+            for x in self.enlisted_classes[1:]:
+                print x, '{}/{} times ({})'.format(num_times_granted[x],num_times,num_times_granted[x]/num_times)
                 
 
     def no_conflict(self, course, granted_classes):
