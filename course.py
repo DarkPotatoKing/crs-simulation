@@ -1,4 +1,7 @@
+from __future__ import division
+
 from utils import *
+import random
 
 class Course():
     """TODO: docstring for Course"""
@@ -15,3 +18,7 @@ class Course():
 
     def attributes(self):
         return [self.name, self.section, self.slots, self.demand, self.credits]
+
+    def is_granted(self):
+        random.seed()
+        return random.random() <= self.slots / self.demand
