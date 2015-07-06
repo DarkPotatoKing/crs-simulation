@@ -38,18 +38,22 @@ class DesiredClasses:
                     line = ','.join([str(x) for x in line])
                     out.append(line)
                 f.write('\n'.join(out))
-            print 'saved as {0}.cvs'.format(filename)
+            print 'saved as {0}.csv'.format(filename)
+
+    def reset(self):
+        self.enlisted_classes = [Course("Class", 'XYZ', 0, 0, 0.0)]
 
     def load(self, filename = 'save'):
         if not filename:
             print 'Unable to load, please enter a filename'
         else:
+            self.reset()
             with open(filename + '.csv', 'r') as f:
                 for x in f.readlines():
                     x = x.strip()
                     x = x.split(',')[1:]
                     self.add(*x)
-            print 'loaded {0}.cvs'.format(filename)
+            print 'loaded {0}.csv'.format(filename)
 
     def run(self, num_times = 1, filename = ''):
         num_times = int(num_times)
