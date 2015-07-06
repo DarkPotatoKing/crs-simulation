@@ -36,6 +36,7 @@ class DesiredClasses:
                     line = ','.join([str(x) for x in line])
                     out.append(line)
                 f.write('\n'.join(out))
+            print 'saved as {0}.cvs'.format(filename)
 
     def load(self, filename = 'save'):
         if not filename:
@@ -46,3 +47,4 @@ class DesiredClasses:
                     x = x.strip()
                     x = x.split(',')[1:]
                     self.add(*x)
+            print 'loaded {0}.cvs'.format(filename)
