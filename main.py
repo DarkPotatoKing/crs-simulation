@@ -1,8 +1,8 @@
-from desired_classes import DesiredClasses
+from cli import CLI
 
 def main():
-    d = DesiredClasses()
-    print d
+    c = CLI()
+    c.start()
 
 if __name__ == '__main__':
     main()
