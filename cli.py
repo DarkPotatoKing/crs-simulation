@@ -14,7 +14,11 @@ class CLI:
             
 
         while True:
-            line_input = raw_input('> ').strip()
+            try:
+                line_input = raw_input('> ').strip()
+            except:
+                self.save()
+                return
 
             if line_input == 'exit':
                 self.save()
