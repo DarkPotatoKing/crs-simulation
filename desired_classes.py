@@ -48,3 +48,28 @@ class DesiredClasses:
                     x = x.split(',')[1:]
                     self.add(*x)
             print 'loaded {0}.cvs'.format(filename)
+
+    def run(self):
+        granted_classes = []
+
+        for x in self.enlisted_classes[1:]:
+            if x.is_granted() and self.no_conflict(x, granted_classes):
+                granted_classes.append(x)
+
+        print 'Granted classes:'
+        print '\n'.join([str(x) for x in granted_classes])
+        print 'Total units: {}'.format(sum([x.credits for x in granted_classes]))
+
+    def no_conflict(self, course, granted_classes):
+        # check if overload
+        units = sum([x.credits for x in granted_classes])
+        if units + course.credits > 20.0:
+            return False
+        else:
+            # check if conflict with same subject or sched
+            for x in granted_classes:
+                if x.name == course.name or x.section == course.section:
+                    return False
+
+            # if no conflicts, return True
+            return True
