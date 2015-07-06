@@ -12,3 +12,6 @@ class Course():
     def __repr__(self):
         s = '{0} {1} [{2}/{3}]'.format(str(self.name), str(self.section), str(self.slots), str(self.demand))
         return center(s) + ' ' + center(self.credits)
+
+    def attributes(self):
+        return [self.name, self.section, self.slots, self.demand, self.credits]
